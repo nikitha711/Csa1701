@@ -1,0 +1,269 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Assisted SEO System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">🤖 AI-SEO System</div>
+        <div class="nav-title">Academic Institution Website</div>
+    </nav>
+
+    <section class="hero">
+
+        <h1>AI-Assisted Search Engine Optimization System</h1>
+
+        <p>
+            Analyze and improve the SEO performance of an academic institution website.
+        </p>
+
+        <form method="POST" class="search-box">
+
+            <input
+                type="text"
+                name="url"
+                placeholder="Enter website URL"
+                required
+            >
+
+            <button type="submit">
+                🔍 Analyze Website
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <section class="dashboard">
+
+        {% if result %}
+
+            {% if result.error %}
+
+                <div class="analysis-box">
+                    <h3>⚠ Analysis Error</h3>
+                    <p>{{ result.error }}</p>
+                </div>
+
+            {% else %}
+
+                <h2>SEO Performance Dashboard</h2>
+
+                <div class="cards">
+
+                    <div class="card">
+                        <h3>Overall SEO Score</h3>
+                        <div class="score">
+                            {{ result.seo_score }}/100
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>H1 Headings</h3>
+                        <div class="score">
+                            {{ result.h1_count }}
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Word Count</h3>
+                        <div class="score">
+                            {{ result.word_count }}
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>AI Relevance</h3>
+                        <div class="score">
+                            {{ result.keyword_relevance }}%
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Links</h3>
+                        <div class="score">
+                            {{ result.link_count }}
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Images</h3>
+                        <div class="score">
+                            {{ result.image_count }}
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="analysis">
+
+                    <div class="analysis-box">
+                        <h3>🌐 Website</h3>
+                        <p>{{ result.url }}</p>
+                    </div>
+
+
+                    <div class="analysis-box">
+
+                        <h3>📝 Title</h3>
+
+                        {% if result.title %}
+
+                            <span class="status status-good">
+                                ✓ Title Found
+                            </span>
+
+                            <p>{{ result.title }}</p>
+
+                        {% else %}
+
+                            <span class="status status-poor">
+                                ✗ Title Missing
+                            </span>
+
+                            <p>No title found.</p>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="analysis-box">
+
+                        <h3>📄 Meta Description</h3>
+
+                        {% if result.meta_description %}
+
+                            <span class="status status-good">
+                                ✓ Meta Description Found
+                            </span>
+
+                            <p>{{ result.meta_description }}</p>
+
+                        {% else %}
+
+                            <span class="status status-poor">
+                                ✗ Meta Description Missing
+                            </span>
+
+                            <p>No meta description found.</p>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="analysis-box">
+
+                        <h3>🤖 AI Keyword Analysis</h3>
+
+                        <p>
+                            Keyword Relevance:
+                            <strong>{{ result.keyword_relevance }}%</strong>
+                        </p>
+
+                        <p>Top keywords identified using TF-IDF:</p>
+
+                        <div class="keyword-list">
+
+                            {% for keyword in result.keywords %}
+
+                                <span class="keyword-tag">
+                                    {{ keyword }}
+                                </span>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="analysis-box">
+
+                        <h3>🖼 Image Analysis</h3>
+
+                        <p>
+                            Total Images: {{ result.image_count }}
+                        </p>
+
+                        <p>
+                            Images Without ALT:
+                            {{ result.images_without_alt }}
+                        </p>
+
+                    </div>
+
+
+                    <div class="analysis-box">
+
+                        <h3>📑 Heading Analysis</h3>
+
+                        <p>
+                            H1 Headings: {{ result.h1_count }}
+                        </p>
+
+                        <p>
+                            H2 Headings: {{ result.h2_count }}
+                        </p>
+
+                    </div>
+
+
+                    <div class="analysis-box">
+
+                        <h3>💡 AI Recommendations</h3>
+
+                        <ul>
+
+                            {% for recommendation in result.recommendations %}
+
+                                <li>{{ recommendation }}</li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        {% else %}
+
+            <h2>SEO Performance Dashboard</h2>
+
+            <div class="analysis-box">
+
+                <h3>👋 Welcome</h3>
+
+                <p>
+                    Enter an academic institution website URL above
+                    and click "Analyze Website" to begin the SEO analysis.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <footer>
+        AI-Assisted SEO System © 2026
+    </footer>
+
+</body>
+
+</html>
